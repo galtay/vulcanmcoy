@@ -1,12 +1,17 @@
+import os
 import pandas
 
+path_here = os.path.dirname(__file__)
 
 class Icd10pcsCodesFile():
     """The ICD-10-PCS codes file contains all valid codes and their long
     descriptions.
     """
     COL_NAMES = ['code', 'long_description']
-    def __init__(self, fname='2017/code_descriptions/icd10pcs_codes_2017.txt'):
+    def __init__(self, year=2017):
+        fname=(
+            '{path_here}/{year}/code_descriptions/icd10pcs_codes_{year}.txt'
+            .format(path_here=path_here, year=year))
         self.fname = fname
         self._df = pandas.read_fwf(fname, header=None, names=self.COL_NAMES)
     def return_codes(self):
@@ -22,7 +27,10 @@ class Icd10pcsOrderFile():
         'order_num', 'code', 'code_flag', 'short_description',
         'long_description']
 
-    def __init__(self, fname='2017/code_descriptions/icd10pcs_order_2017.txt'):
+    def __init__(self, year=2017):
+        fname=(
+            '{path_here}/{year}/code_descriptions/icd10pcs_order_{year}.txt'
+            .format(path_here=path_here, year=year))
         self.fname = fname
         self._df = pandas.read_fwf(fname, header=None, names=self.COL_NAMES)
     def return_codes(self):
